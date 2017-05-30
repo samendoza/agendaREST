@@ -9,16 +9,16 @@ class AgendaAPI {
         $method = $_SERVER['REQUEST_METHOD'];
         switch ($method) {
         case 'GET'://consulta
-            echo 'GET';
-           
+            //echo 'GET';
+            $this->obtenerUsuario();
             break;     
         case 'POST'://inserta
-            echo 'POST';
+            //echo 'POST';
             $this->registrarUsuario();
             break;                
         case 'PUT'://actualiza
-            echo 'PUT';
-            
+            //echo 'PUT';
+            $this->actualizarUsuario();
             break;      
         case 'DELETE'://elimina
             echo 'DELETE';
@@ -42,5 +42,15 @@ class AgendaAPI {
     public function registrarUsuario(){
        $ctrlUsuario = new ControladorUsuario();
        $ctrlUsuario->registraUsuario();
+    }
+    
+    public function actualizarUsuario(){
+       $ctrlUsuario = new ControladorUsuario();
+       $ctrlUsuario->actualizaPerfil();
+    }
+    
+    public function obtenerUsuario(){
+       $ctrlUsuario = new ControladorUsuario();
+       $ctrlUsuario->obtenerDatos();
     }
 }

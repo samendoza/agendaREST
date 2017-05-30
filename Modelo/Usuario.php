@@ -100,6 +100,52 @@
             return false;
         }
 
+        public function actualizarPerfil($nombre, $apPat, $apMat, $sexo, $estado, $fechaNac, $php, $java, $jquery){
+            $db = new DataBase();
+            $db->conectar();
+            $query = "update usuarios set nombre = '".$nombre."', "
+                    . "apPat = '".$apPat."', "
+                    . "apMat = '".$apMat."', "
+                    . "sexo = '".$sexo."', "
+                    . "estado = '".$estado."', "
+                    . "fechaNac = '".$fechaNac."', " 
+                    . "php = ".$php.", " 
+                    . "java = ".$java.", "
+                    . "jquery = ".$jquery
+                    . " where id =  '".$this->usuario."'";
+            echo $query;
+            //cambio exitoso
+            if($db->consulta($query)) {
+                $db->desconectar();
+                return true;
+            }
+    
+            //error al cambiar la contraseña
+            $db->desconectar();
+            return false;
+        }
+        
+         /*************************************************************************************************************************
+        *Funcion estaRegistrado(): Devuelve true o false dependiendo si el nombre de usuario ya se usa en otro registro
+        *retorno: boolean true->Nombre de usuario ocupado
+        *         false->Nombre de usuario disponible
+        /*************************************************************************************************************************/
+        public function getDatos(){
+            $db = new DataBase();
+            $db->conectar();
+            
+            $query = "Select * from usuarios where id = '".$this->usuario."'";
+           // echo $query;
+            $result = $db->consulta($query);
+            $res = array();
+            while($row = mysqli_fetch_assoc($result)){
+               $res[] = $row;
+            }
+            
+            $db->desconectar();
+            return $res;
+        }
+        
         public function setImg($img){
             $this->img = $img;
         }
@@ -110,8 +156,6 @@
 
         public function getUsuario(){
             return $this->usuario;
-        }
-
-        
+        }  
     }
 ?>
